@@ -1,0 +1,40 @@
+{
+    "name": "Duckiebot ROS2 Development Environment",
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "containerEnv": {
+        "DISPLAY": "${env:DISPLAY}",
+        "NVIDIA_VISIBLE_DEVICES": "all",
+        "NVIDIA_DRIVER_CAPABILITIES": "all",
+        "ROS_DOMAIN_ID": "50"
+    },
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/mnt,type=bind,consistency=cached",
+    "workspaceFolder": "/home/mnt/ws",
+    "privileged": true,
+    "runArgs": [
+        "--net=host",
+        "--gpus", "all",
+        "--group-add=dialout"
+    ],
+    "mounts": [
+        "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
+        "source=/dev,target=/dev,type=bind,consistency=cached"
+    ],
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode.cpptools",
+                "ms-vscode.cpptools-extension-pack",
+                "ms-iot.vscode-ros",
+                "ms-python.python",
+                "VisualStudioExptTeam.vscodeintellicode",
+                "njpwerner.autodocstring",
+                "KevinRose.vsc-python-indent",
+                "GitHub.copilot"
+            ]
+        }
+    },
+    "postCreateCommand": "chmod +x ../util/build.sh && bash ../util/build.sh"
+}
