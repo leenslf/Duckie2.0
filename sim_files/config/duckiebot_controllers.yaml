@@ -1,0 +1,15 @@
+# Joint state controller publishes the state of all joints
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+# Diff drive controller to move the robot via cmd_vel
+diff_drive_controller:
+  type: diff_drive_controller/DiffDriveController
+  left_wheel: left_wheel_joint
+  right_wheel: right_wheel_joint
+  wheel_separation: 0.102        # distance between wheels (meters)
+  wheel_radius: 0.033             # radius of wheels (meters)
+  cmd_vel_timeout: 0.25
+  publish_rate: 50
+  velocity_rolling_window_size: 2
