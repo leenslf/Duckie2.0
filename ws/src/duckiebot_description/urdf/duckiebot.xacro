@@ -1,0 +1,254 @@
+<?xml version="1.0"?>
+<robot name="duckiebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Properties -->
+  <xacro:property name="cameraSize" value="0.01"/>
+  <xacro:property name="cameraMass" value="0.01"/>
+  <xacro:property name="compuMass" value="0.01"/>
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <!-- Chassis -->
+  <xacro:property name="chassisHeight" value="0.0623"/>
+  <xacro:property name="chassisLength" value="0.198"/>
+  <xacro:property name="chassisWidth" value="0.119"/>
+  <xacro:property name="chassisMass" value="0.15"/>
+
+  <!-- Caster -->
+  <xacro:property name="casterRadius" value="0.021"/>
+  <xacro:property name="casterMass" value="0.09"/>
+  <xacro:property name="casterOffsetX" value="0.091"/>
+
+  <!-- Wheels -->
+  <xacro:property name="wheelWidth" value="0.026"/>
+  <xacro:property name="wheelRadius" value="0.032"/>
+  <xacro:property name="wheelMass" value="0.05"/>
+  <xacro:property name="wheelOffsetY" value="0.037"/>
+
+  <!-- Gazebo Materials -->
+  <xacro:include filename="$(find duckiebot_description)/urdf/materials.xacro"/>
+  <xacro:include filename="$(find duckiebot_description)/urdf/macros.xacro"/>
+  <xacro:include filename="$(find duckiebot_description)/urdf/duckiebot.gazebo"/>
+
+  <pose>0 0 0 0 0 0</pose>
+
+  <!-- ======================= CHASSIS ======================= -->
+  <link name="chassis">
+    <inertial>
+      <mass value="${chassisMass}"/>
+      <origin xyz="-0.05 0 0"/>
+      <inertia ixx="1.56167e-05" ixy="0" ixz="0"
+               iyy="1.56167e-05" iyz="0"
+               izz="2.56e-05"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- ======================= WHEELS ======================= -->
+  <link name="left_wheel">
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.561e-05" iyy="0.561e-05" izz="1.56e-05" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 -0.07 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 -0.07 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="right_wheel">
+    <inertial>
+      <mass value="${wheelMass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0.561e-05" iyy="0.561e-05" izz="1.56e-05" ixy="0" ixz="0" iyz="0"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0.07 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0.07 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Wheel joints -->
+  <joint type="continuous" name="left_wheel_hinge">
+    <parent link="chassis"/>
+    <child link="left_wheel"/>
+    <origin xyz="0 0.07 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <joint type="continuous" name="right_wheel_hinge">
+    <parent link="chassis"/>
+    <child link="right_wheel"/>
+    <origin xyz="0 -0.07 0"/>
+    <axis xyz="0 1 0"/>
+  </joint>
+
+  <!-- ======================= COMPUTER ======================= -->
+  <link name="computer">
+    <inertial>
+      <mass value="${compuMass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="computer_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="computer"/>
+  </joint>
+
+  <!-- ======================= IMU (FIXED + WORKING) ======================= -->
+  <link name="imu_link">
+    <inertial>
+      <mass value="0.01"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+    </inertial>
+
+    <visual>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="blue"/>
+    </visual>
+
+    <collision>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="imu_joint" type="fixed">
+    <parent link="computer"/>
+    <child link="imu_link"/>
+    <origin xyz="0 0 0.02"/>
+  </joint>
+
+  <gazebo reference="imu_link">
+    <sensor type="imu" name="imu_sensor">
+      <always_on>true</always_on>
+      <update_rate>50</update_rate>
+
+      <topicName>imu/data</topicName>
+
+      <imu>
+        <angular_velocity>
+          <x>1</x><y>1</y><z>1</z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>1</x><y>1</y><z>1</z>
+        </linear_acceleration>
+      </imu>
+
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>/</namespace>
+        </ros>
+        <frameName>imu_link</frameName>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+  <!-- ======================= CAMERA ======================= -->
+  <link name="camera">
+    <inertial>
+      <mass value="${cameraMass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="-0.05 0 -0.055" rpy="0 -0.1 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="-0.05 0 -0.055" rpy="0 -0.1 0"/>
+      <geometry>
+        <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="camera_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="camera"/>
+    <origin xyz="0.05 0 0.05" rpy="0 0.1 0"/>
+  </joint>
+
+<!-- Transmissions for wheel joints -->
+  <!-- <transmission name="left_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="left_wheel_hinge"/>
+    <actuator name="left_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="right_wheel_trans">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="right_wheel_hinge"/>
+    <actuator name="right_wheel_motor">
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission> -->
+
+  <!-- Gazebo ROS Control plugin -->
+  <!-- <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
+  </gazebo> -->
+
+</robot>
