@@ -14,7 +14,7 @@ The robot includes:
 
 - **Start the container:**
 
-    In VsCode ctrl + alt + p -> Rebuild and Reopen in container 
+    In VsCode `Ctrl+Shift+P` -> Rebuild and Reopen in container 
 - Build
     ```bash
     cd ~/ws
