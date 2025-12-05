@@ -27,7 +27,7 @@
   <!-- Gazebo Materials -->
   <xacro:include filename="$(find duckiebot_description)/urdf/materials.xacro"/>
   <xacro:include filename="$(find duckiebot_description)/urdf/macros.xacro"/>
-  <xacro:include filename="$(find duckiebot_description)/urdf/duckiebot.gazebo"/>
+  <xacro:include filename="$(find duckiebot_gazebo)/urdf/duckiebot.gazebo"/>
 
   <pose>0 0 0 0 0 0</pose>
 

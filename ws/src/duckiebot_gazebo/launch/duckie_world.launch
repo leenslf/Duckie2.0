@@ -1,0 +1,19 @@
+<launch>
+  <env name="GAZEBO_MODEL_PATH" value="$(find duckiebot_gazebo)/models"/>
+
+  <!-- Load the empty Gazebo world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find duckiebot_gazebo)/worlds/duckie_world.world"/>
+  </include>
+
+  <!-- Load Duckiebot URDF into robot_description -->
+  <param name="robot_description"
+         command="$(find xacro)/xacro $(find duckiebot_description)/urdf/duckiebot.xacro"/>
+
+  <!-- Spawn the Duckiebot -->
+  <node name="spawn_duckiebot" pkg="gazebo_ros" type="spawn_model" output="screen"
+        args="-param robot_description -urdf -model duckiebot -x 0 -y 0 -z 0.1"/>
+
+  <!-- Teleop Node -->
+  <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/>
+</launch>

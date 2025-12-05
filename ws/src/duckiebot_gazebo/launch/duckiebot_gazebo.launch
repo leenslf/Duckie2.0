@@ -1,4 +1,6 @@
 <launch>
+  <env name="GAZEBO_MODEL_PATH" value="$(find duckiebot_gazebo)/models"/>
+
   <arg name="x" default="0"/>
   <arg name="y" default="0"/>
   <arg name="z" default="0"/>

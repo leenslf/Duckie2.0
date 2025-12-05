@@ -27,5 +27,5 @@ The robot includes:
     ```
 
 ## Launch
-To launch sim with teleop keyboard: `roslaunch duckiebot_description full_duckiebot.launch`.
+To launch sim with teleop keyboard: `roslaunch duckiebot_gazebo duckie_world.launch`.
 Checkout the other launch files for more. 
