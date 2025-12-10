@@ -15,7 +15,6 @@
     "privileged": true,
     "runArgs": [
         "--net=host",
-        "--gpus", "all",
         "--group-add=dialout"
     ],
     "mounts": [
