@@ -31,6 +31,24 @@
 
   <pose>0 0 0 0 0 0</pose>
 
+  <!-- ======================= BASE_LINK (ROS Navigation Reference) ======================= -->
+  <link name="base_link">
+    <inertial>
+      <mass value="0.0"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="0" ixy="0" ixz="0" 
+              iyy="0" iyz="0" 
+              izz="0"/>
+    </inertial>
+  </link>
+
+  <!-- Joint connecting base_link to chassis (raised by wheel radius) -->
+  <joint name="base_to_chassis" type="fixed">
+    <parent link="base_link"/>
+    <child link="chassis"/>
+    <origin xyz="0 0 ${wheelRadius}" rpy="0 0 0"/>
+  </joint>
+
   <!-- ======================= CHASSIS ======================= -->
   <link name="chassis">
     <inertial>
@@ -124,7 +142,9 @@
     <inertial>
       <mass value="${compuMass}"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" 
+              iyy="1e-6" iyz="0" 
+              izz="1e-6"/>
     </inertial>
 
     <visual>
@@ -151,7 +171,9 @@
     <inertial>
       <mass value="0.01"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" 
+              iyy="1e-6" iyz="0" 
+              izz="1e-6"/>
     </inertial>
 
     <visual>
@@ -199,7 +221,9 @@
     <inertial>
       <mass value="${cameraMass}"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" 
+              iyy="1e-6" iyz="0" 
+              izz="1e-6"/>
     </inertial>
 
     <visual>

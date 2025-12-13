@@ -9,10 +9,17 @@
     <node name="mybot_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
           args="-param robot_description -urdf -model duckiebot -x 0 -y 0 -z 0.2"/>
 
+      <include file="$(find duckiebot_description)/launch/static_transforms.launch"/>
+
+      <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+            <param name="publish_frequency" value="50.0"/>
+            <param name="use_tf_static" value="true"/>
+      </node>
+
     <!-- Load controllers -->
     <!-- <node pkg="controller_manager" type="spawner" name="controller_spawner"
           args="joint_state_controller diff_drive_controller"/> -->
 
     <!-- Teleop node -->
-    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/>
+    <!-- <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/> -->
 </launch>

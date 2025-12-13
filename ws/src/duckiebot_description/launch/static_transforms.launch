@@ -1,0 +1,19 @@
+<launch>
+  <!-- ========================================== -->
+  <!-- Static Transform Publishers               -->
+  <!-- ========================================== -->
+  <node pkg="tf" type="static_transform_publisher" name="map_to_world"
+        args="0 0 0 0 0 0 map world 100"/>
+  <!-- Static TF: world → odom -->
+  <!-- This transform defines where the odometry frame is relative to a fixed world frame -->
+  <!-- Later, VINS-Mono will publish this dynamically (remove this when VINS is running) -->
+  <node pkg="tf" type="static_transform_publisher" name="world_to_odom"
+        args="0 0 0 0 0 0 world odom 100"/>
+
+  <!-- Static TF: odom → base_link -->
+  <!-- This is a temporary identity transform -->
+  <!-- Later, VINS or robot_localization will publish this dynamically -->
+  <!-- <node pkg="tf" type="static_transform_publisher" name="odom_to_base_link"
+        args="0 0 0 0 0 0 odom base_link 100"/> -->
+
+</launch>

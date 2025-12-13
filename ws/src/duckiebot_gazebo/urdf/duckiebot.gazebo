@@ -5,16 +5,18 @@
     <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
-      <updateRate>0</updateRate>
+      <updateRate>50</updateRate>
       <leftJoint>left_wheel_hinge</leftJoint>
       <rightJoint>right_wheel_hinge</rightJoint>
-      <wheelSeparation>0.4</wheelSeparation>
-      <wheelDiameter>0.1</wheelDiameter>
+      <wheelSeparation>0.14</wheelSeparation>
+      <wheelDiameter>0.064</wheelDiameter>
       <torque>20</torque>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
       <odometryFrame>odom</odometryFrame>
-      <robotBaseFrame>chassis</robotBaseFrame>
+      <robotBaseFrame>base_link</robotBaseFrame>
+      <publishWheelTF>false</publishWheelTF>
+      <publishWheelJointState>false</publishWheelJointState>
     </plugin>
   </gazebo>
 
@@ -29,9 +31,11 @@
   <gazebo reference="camera">
     <material>Gazebo/Black</material>
   </gazebo>
+
   <gazebo reference="left_wheel">
     <material>Gazebo/Green</material>
   </gazebo>
+
   <gazebo reference="right_wheel">
     <material>Gazebo/Green</material>
   </gazebo>
@@ -54,12 +58,12 @@
       </camera>
       <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
         <alwaysOn>true</alwaysOn>
-        <updateRate>0</updateRate>
+        <updateRate>30.0</updateRate>
         <cameraName>duckiebot/camera1</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
         <frameName>camera</frameName>
-        <hackBaseline>0.07</hackBaseline>
+        <hackBaseline>0.0</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>
         <distortionK3>0.0</distortionK3>
@@ -70,7 +74,16 @@
   </gazebo>
 
   <gazebo reference="chassis">
-      <material>Gazebo/Orange</material>
-    </gazebo>
+    <material>Gazebo/Orange</material>
+  </gazebo>
+
+  <gazebo>
+    <plugin name="joint_state_publisher" filename="libgazebo_ros_joint_state_publisher.so">
+      <robotNamespace>/</robotNamespace>
+      <jointName>left_wheel_hinge, right_wheel_hinge</jointName>
+      <updateRate>50.0</updateRate>
+      <alwaysOn>true</alwaysOn>
+    </plugin>
+  </gazebo>
 
 </robot>
