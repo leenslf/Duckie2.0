@@ -1,3 +1,7 @@
+### Clone this fork
+```bash
+git clone -b duckie https://github.com/leenslf/VINS-Mono.git
+```
 ### Install this test data after you install vins mono and build (and source ofc)
 ```bash
 wget http://robotics.ethz.ch/~asl-datasets/ijrr_euroc_mav_dataset/machine_hall/MH_01_easy/MH_01_easy.bag
@@ -133,3 +137,5 @@ feature_tracker  →  vins_estimator  →  pose_graph
 #
 
 Our main focus right now is **`vins_estimator` Node**. Checkout config and launch under that package, We will use the calibration params that @Danial will find in  `/VINS-Mono/config/duckiebot/duckiebot_config.yaml` (currently we use approximate values).
+
+
