@@ -3,12 +3,14 @@
 #common parameters
 imu_topic: "/imu_data"
 image_topic: "/duckiebot/camera1/image_raw"
-output_path: "/workspaces/duckiebot/src/VINS-Mono/output/"
+output_path: "/home/mnt/ws/src/VINS-Mono/output/"
 
 model_type: PINHOLE
 camera_name: camera
 image_width: 320
 image_height: 240
+
+# Camera Calibration
 distortion_parameters:
    k1: 0.0
    k2: 0.0
@@ -20,22 +22,18 @@ projection_parameters:
    cx: 160.0
    cy: 120.0
 
-# Rotation from Camera Optical Frame to IMU Frame
+# Extrinsics (Camera to IMU)
+estimate_extrinsic: 0
 body_T_cam0: !!opencv-matrix
    rows: 4
    cols: 4
    dt: d
-   data: [ 0.0, -0.0998, 0.995, 0.05,
-          -1.0,  0.0,    0.0,   0.0,
-           0.0, -0.995, -0.0998, 0.03,
-           0.0,  0.0,    0.0,   1.0 ]
+   data: [0, 0, 1, 0, -1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 0, 1]
 
-# Time Delay (Simulation has perfect sync)
+# IMU Parameters
+acc_n: 0.1
+gyr_n: 0.01
+acc_w: 0.0002
+gyr_w: 2.0e-5
+g_norm: 9.81007
 td: 0.0
-
-# IMU Noise (Standard Simulation Values)
-acc_n: 0.1          # accelerometer measurement noise standard deviation.
-gyr_n: 0.01         # gyroscope measurement noise standard deviation.
-acc_w: 0.0002       # accelerometer bias random work noise standard deviation.
-gyr_w: 2.0e-5       # gyroscope bias random work noise standard deviation.
-g_norm: 9.81007     # gravity magnitude

@@ -95,19 +95,28 @@ void readParameters(ros::NodeHandle &n)
         if (ESTIMATE_EXTRINSIC == 0)
             ROS_WARN(" fix extrinsic param ");
 
-        cv::Mat cv_R, cv_T;
-        fsSettings["extrinsicRotation"] >> cv_R;
-        fsSettings["extrinsicTranslation"] >> cv_T;
-        Eigen::Matrix3d eigen_R;
-        Eigen::Vector3d eigen_T;
-        cv::cv2eigen(cv_R, eigen_R);
-        cv::cv2eigen(cv_T, eigen_T);
-        Eigen::Quaterniond Q(eigen_R);
-        eigen_R = Q.normalized();
+        // --- HARDCODED FIX START ---
+        ROS_WARN("USING HARDCODED EXTRINSIC PARAMETERS (Fixing Crash)");
+        
+        // Rotation: Identity Matrix (Camera aligned with IMU frame for now)
+        // Adjust signs here later if the rotation is wrong (e.g. -1s)
+        Eigen::Matrix3d eigen_R = Eigen::Matrix3d::Identity();
+        
+        // Rotation for standard camera conventions (Forward=Z vs Forward=X)
+        // If the identity above doesn't work, we swap to this later:
+        eigen_R << 0, 0, 1, 
+                  -1, 0, 0, 
+                   0,-1, 0; 
+
+        // Translation: Zero (Assuming camera is inside the IMU/Center)
+        Eigen::Vector3d eigen_T = Eigen::Vector3d::Zero();
+
         RIC.push_back(eigen_R);
         TIC.push_back(eigen_T);
+        
         ROS_INFO_STREAM("Extrinsic_R : " << std::endl << RIC[0]);
         ROS_INFO_STREAM("Extrinsic_T : " << std::endl << TIC[0].transpose());
+        // --- HARDCODED FIX END ---
         
     } 
 

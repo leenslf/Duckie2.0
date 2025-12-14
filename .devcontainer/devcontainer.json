@@ -24,16 +24,11 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-extension-pack",
-                "ms-iot.vscode-ros",
                 "ms-python.python",
                 "VisualStudioExptTeam.vscodeintellicode",
                 "njpwerner.autodocstring",
-                "KevinRose.vsc-python-indent",
-                "GitHub.copilot"
+                "KevinRose.vsc-python-indent"
             ]
         }
-    },
-    "postCreateCommand": "chmod +x ../util/build.sh && bash ../util/build.sh"
+    }
 }
