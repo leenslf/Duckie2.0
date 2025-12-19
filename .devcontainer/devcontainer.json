@@ -14,9 +14,9 @@
     "workspaceFolder": "/home/mnt/ws",
     "privileged": true,
     "runArgs": [
-        "--net=host",
-        "--gpus", "all",
-        "--group-add=dialout"
+    	"--net=host",
+        "--group-add=dialout",
+        "--privileged"
     ],
     "mounts": [
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
@@ -25,14 +25,10 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-extension-pack",
-                "ms-iot.vscode-ros",
                 "ms-python.python",
                 "VisualStudioExptTeam.vscodeintellicode",
                 "njpwerner.autodocstring",
                 "KevinRose.vsc-python-indent",
-                "GitHub.copilot"
             ]
         }
     },
