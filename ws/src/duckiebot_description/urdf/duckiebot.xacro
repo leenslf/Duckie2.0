@@ -177,24 +177,63 @@
   <gazebo reference="imu_link">
     <sensor type="imu" name="imu_sensor">
       <always_on>true</always_on>
-      <update_rate>50</update_rate>
-
-      <topicName>imu/data</topicName>
+      <updateRateHZ>50</updateRateHZ>
 
       <imu>
         <angular_velocity>
-          <x>1</x><y>1</y><z>1</z>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </z>
         </angular_velocity>
         <linear_acceleration>
-          <x>1</x><y>1</y><z>1</z>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </z>
         </linear_acceleration>
       </imu>
 
       <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <ros>
-          <namespace>/</namespace>
+          <namespace>duckiebot</namespace>
         </ros>
+        <robotNamespace>duckiebot</robotNamespace>
+        <topicName>imu/data</topicName>
         <frameName>imu_link</frameName>
+        <updateRateHZ>50</updateRateHZ>
+        <gaussianNoise>0.0</gaussianNoise>
+        <xyzOffset>0 0 0</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <initialOrientationAsReference>false</initialOrientationAsReference>
       </plugin>
     </sensor>
   </gazebo>
