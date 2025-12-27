@@ -200,16 +200,56 @@
     <gravity>true</gravity>
     <sensor name="imu_sensor" type="imu">
       <always_on>true</always_on>
-      <update_rate>200</update_rate>
-      <visualize>true</visualize>
-      <topic>__default_topic__</topic>
-      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
-        <topicName>imu_data</topicName>
-        <bodyName>imu_link</bodyName>
-        <updateRate>200.0</updateRate>
-        <gaussianNoise>0.0</gaussianNoise>
-        <xyzOffset>0 0 0</xyzOffset>
-        <rpyOffset>0 0 0</rpyOffset>
+      <imu>
+        <angular_velocity>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>0.0</stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
+        <ros>
+          <namespace>duckiebot</namespace>
+        </ros>
+        <updateRateHZ>200</updateRateHZ>
+        <robotNamespace>duckiebot</robotNamespace>
+        <topicName>imu/data</topicName>
         <frameName>imu_link</frameName>
         <initialOrientationAsReference>false</initialOrientationAsReference>
       </plugin>
@@ -247,27 +287,5 @@
     <child link="camera"/>
     <origin xyz="0.05 0 0.05" rpy="0 0.1 0"/>
   </joint>
-
-<!-- Transmissions for wheel joints -->
-  <!-- <transmission name="left_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="left_wheel_hinge"/>
-    <actuator name="left_wheel_motor">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission>
-
-  <transmission name="right_wheel_trans">
-    <type>transmission_interface/SimpleTransmission</type>
-    <joint name="right_wheel_hinge"/>
-    <actuator name="right_wheel_motor">
-      <mechanicalReduction>1</mechanicalReduction>
-    </actuator>
-  </transmission> -->
-
-  <!-- Gazebo ROS Control plugin -->
-  <!-- <gazebo>
-    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so"/>
-  </gazebo> -->
 
 </robot>
