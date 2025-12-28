@@ -24,14 +24,10 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "ms-vscode.cpptools",
-                "ms-vscode.cpptools-extension-pack",
-                "ms-iot.vscode-ros",
                 "ms-python.python",
                 "VisualStudioExptTeam.vscodeintellicode",
                 "njpwerner.autodocstring",
                 "KevinRose.vsc-python-indent",
-                "GitHub.copilot"
             ]
         }
     },

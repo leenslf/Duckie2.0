@@ -6,6 +6,7 @@
       <legacyMode>false</legacyMode>
       <alwaysOn>true</alwaysOn>
       <updateRate>50</updateRate>
+      <updateRate>50</updateRate>
       <leftJoint>left_wheel_hinge</leftJoint>
       <rightJoint>right_wheel_hinge</rightJoint>
       <wheelSeparation>0.14</wheelSeparation>
