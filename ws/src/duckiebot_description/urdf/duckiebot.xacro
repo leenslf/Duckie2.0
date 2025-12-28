@@ -128,6 +128,7 @@
     <child link="left_wheel"/>
     <origin xyz="0 0.07 0"/>
     <axis xyz="0 1 0"/>
+    <dynamics damping="0.1" friction="0.1"/> 
   </joint>
 
   <joint type="continuous" name="right_wheel_hinge">
@@ -135,6 +136,7 @@
     <child link="right_wheel"/>
     <origin xyz="0 -0.07 0"/>
     <axis xyz="0 1 0"/>
+    <dynamics damping="0.1" friction="0.1"/> 
   </joint>
 
   <!-- ======================= COMPUTER ======================= -->
@@ -245,15 +247,68 @@
 
       <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <ros>
-          <namespace>duckiebot</namespace>
+          <namespace></namespace>
         </ros>
-        <updateRateHZ>200</updateRateHZ>
-        <robotNamespace>duckiebot</robotNamespace>
+        <updateRateHZ>150</updateRateHZ>
+        <robotNamespace></robotNamespace>
         <topicName>imu/data</topicName>
         <frameName>imu_link</frameName>
         <initialOrientationAsReference>false</initialOrientationAsReference>
       </plugin>
     </sensor>
+  </gazebo>
+
+  <!-- ======================= CASTER WHEEL ======================= -->
+  <link name="caster">
+    <inertial>
+      <mass value="${casterMass}"/>
+      <origin xyz="0 0 0"/>
+      <inertia ixx="1.0e-6" ixy="0" ixz="0"
+              iyy="1.0e-6" iyz="0"
+              izz="1.0e-6"/>
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius}"/>
+      </geometry>
+      <material name="black"/>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <sphere radius="${casterRadius}"/>
+      </geometry>
+      <surface>
+        <friction>
+          <ode>
+            <mu>0.0</mu>
+            <mu2>0.0</mu2>
+            <slip1>1.0</slip1>
+            <slip2>1.0</slip2>
+          </ode>
+        </friction>
+      </surface>
+    </collision>
+  </link>
+
+  <joint name="caster_joint" type="fixed">
+    <parent link="chassis"/>
+    <child link="caster"/>
+    <!-- Position caster at rear of robot, on ground level -->
+    <origin xyz="-${casterOffsetX} 0 ${-wheelRadius + casterRadius}" rpy="0 0 0"/>
+  </joint>
+
+  <gazebo reference="caster">
+    <material>Gazebo/Black</material>
+    <mu1>0.0</mu1>
+    <mu2>0.0</mu2>
+    <kp>100000.0</kp>      
+    <kd>10.0</kd>        
+    <minDepth>0.001</minDepth>
+    <maxVel>0.01</maxVel>
   </gazebo>
 
   <!-- ======================= CAMERA ======================= -->

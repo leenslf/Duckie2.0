@@ -16,4 +16,10 @@
 
   <!-- Teleop Node -->
   <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="teleop" output="screen"/>
+  <include file="$(find duckiebot_description)/launch/static_transforms.launch"/>
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen">
+        <param name="publish_frequency" value="50.0"/>
+        <param name="use_tf_static" value="true"/>
+  </node>
+
 </launch>
