@@ -128,6 +128,7 @@
     <child link="left_wheel"/>
     <origin xyz="0 0.07 0"/>
     <axis xyz="0 1 0"/>
+    <dynamics damping="0.1" friction="0.1"/> 
   </joint>
 
   <joint type="continuous" name="right_wheel_hinge">
@@ -135,6 +136,7 @@
     <child link="right_wheel"/>
     <origin xyz="0 -0.07 0"/>
     <axis xyz="0 1 0"/>
+    <dynamics damping="0.1" friction="0.1"/> 
   </joint>
 
   <!-- ======================= COMPUTER ======================= -->
@@ -202,56 +204,21 @@
       <always_on>true</always_on>
       <imu>
         <angular_velocity>
-          <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </z>
+          <x>1</x><y>1</y><z>1</z>
         </angular_velocity>
         <linear_acceleration>
-          <x>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </x>
-          <y>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </y>
-          <z>
-            <noise type="gaussian">
-              <mean>0.0</mean>
-              <stddev>0.0</stddev>
-            </noise>
-          </z>
+          <x>1</x><y>1</y><z>1</z>
         </linear_acceleration>
       </imu>
 
       <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <ros>
-          <namespace>duckiebot</namespace>
+          <namespace></namespace>
         </ros>
-        <updateRateHZ>200</updateRateHZ>
-        <robotNamespace>duckiebot</robotNamespace>
+        <updateRateHZ>150</updateRateHZ>
+        <robotNamespace></robotNamespace>
         <topicName>imu/data</topicName>
         <frameName>imu_link</frameName>
-        <initialOrientationAsReference>false</initialOrientationAsReference>
       </plugin>
     </sensor>
   </gazebo>

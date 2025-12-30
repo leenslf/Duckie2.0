@@ -14,7 +14,7 @@
     "workspaceFolder": "/home/mnt/ws",
     "privileged": true,
     "runArgs": [
-    	"--net=host",
+        "--net=host",
         "--group-add=dialout",
         "--privileged"
     ],
