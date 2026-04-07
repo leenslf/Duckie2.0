@@ -1,3 +1,5 @@
 ws/build/
 ws/log/
 ws/install/
+ws/devel/
+ws/.catkin_workspace

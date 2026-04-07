@@ -1,4 +1,4 @@
-FROM osrf/ros:noetic-desktop-full
+FROM osrf/ros:humble-desktop-full
 
 ARG USERNAME=grad-project
 ARG USER_UID=1000
@@ -6,7 +6,7 @@ ARG USER_GID=$USER_UID
 ARG DEBIAN_FRONTEND=noninteractive
 
 ENV SHELL=/bin/bash \
-    ROS_DISTRO=noetic
+    ROS_DISTRO=humble
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
@@ -27,14 +27,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     bison \
     gstreamer1.0-pulseaudio \
     python3-pip \
+    python3-colcon-common-extensions \
     nano \
-    ros-noetic-gazebo-ros-pkgs \
-    ros-noetic-teleop-twist-keyboard \
-    ros-noetic-joint-state-publisher \
-    ros-noetic-joint-state-publisher-gui \
-    ros-noetic-robot-localization \
-    ros-noetic-ros-control \
-    ros-noetic-ros-controllers \
+    xterm \
+    gazebo \
+    ros-humble-gazebo-ros-pkgs \
+    ros-humble-joint-state-publisher \
+    ros-humble-joint-state-publisher-gui \
+    ros-humble-robot-localization \
+    ros-humble-robot-state-publisher \
+    ros-humble-ros2-control \
+    ros-humble-ros2-controllers \
+    ros-humble-teleop-twist-keyboard \
+    ros-humble-xacro \
     && rm -rf /var/lib/apt/lists/*
 
 
@@ -48,5 +53,5 @@ USER $USERNAME
 
 RUN pip install --user --upgrade numpy==1.24.4
 
-RUN echo "source /opt/ros/noetic/setup.bash" >> ~/.bashrc && \
+RUN echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
     echo "source /usr/share/gazebo/setup.sh" >> ~/.bashrc
