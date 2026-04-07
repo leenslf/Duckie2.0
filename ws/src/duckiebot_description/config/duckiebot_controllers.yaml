@@ -1,15 +1,21 @@
-joint_state_controller:
-  type: joint_state_controller/JointStateController
-  publish_rate: 50
+controller_manager:
+  ros__parameters:
+    update_rate: 50
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    diff_drive_controller:
+      type: diff_drive_controller/DiffDriveController
 
 diff_drive_controller:
-  type: diff_drive_controller/DiffDriveController
-  publish_rate: 50
-
-  left_wheel: ['left_wheel_hinge']
-  right_wheel: ['right_wheel_hinge']
-
-  wheel_separation: 0.10
-  wheel_radius: 0.03
-
-  cmd_vel_timeout: 0.5
+  ros__parameters:
+    left_wheel_names: ["left_wheel_hinge"]
+    right_wheel_names: ["right_wheel_hinge"]
+    wheel_separation: 0.10
+    wheel_radius: 0.03
+    publish_rate: 50.0
+    cmd_vel_timeout: 0.5
+    base_frame_id: chassis
+    odom_frame_id: odom
+    use_stamped_vel: false

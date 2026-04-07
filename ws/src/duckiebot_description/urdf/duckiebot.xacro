@@ -44,7 +44,8 @@
     <visual>
       <origin xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebotFrame.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="red"/>
     </visual>
@@ -52,7 +53,8 @@
     <collision>
       <origin xyz="0 0 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebotFrame.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebotFrame.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -68,7 +70,8 @@
     <visual>
       <origin xyz="0 -0.07 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_leftwheel.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -76,7 +79,8 @@
     <collision>
       <origin xyz="0 -0.07 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_leftwheel.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_leftwheel.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -91,7 +95,8 @@
     <visual>
       <origin xyz="0 0.07 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_rightwheel.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -99,7 +104,8 @@
     <collision>
       <origin xyz="0 0.07 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_rightwheel.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_rightwheel.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -124,19 +130,22 @@
     <inertial>
       <mass value="${compuMass}"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <!-- Original: <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/> -->
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
 
     <visual>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_computer.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="blue"/>
     </visual>
 
     <collision>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_computer.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_computer.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
@@ -151,7 +160,8 @@
     <inertial>
       <mass value="0.01"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <!-- Original: <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/> -->
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
 
     <visual>
@@ -177,7 +187,7 @@
   <gazebo reference="imu_link">
     <sensor type="imu" name="imu_sensor">
       <always_on>true</always_on>
-      <updateRateHZ>50</updateRateHZ>
+      <update_rate>50</update_rate>
 
       <imu>
         <angular_velocity>
@@ -224,16 +234,11 @@
 
       <plugin name="imu_plugin" filename="libgazebo_ros_imu_sensor.so">
         <ros>
-          <namespace>duckiebot</namespace>
+          <namespace>/duckiebot</namespace>
+          <remapping>~/out:=imu/data</remapping>
         </ros>
-        <robotNamespace>duckiebot</robotNamespace>
-        <topicName>imu/data</topicName>
-        <frameName>imu_link</frameName>
-        <updateRateHZ>50</updateRateHZ>
-        <gaussianNoise>0.0</gaussianNoise>
-        <xyzOffset>0 0 0</xyzOffset>
-        <rpyOffset>0 0 0</rpyOffset>
-        <initialOrientationAsReference>false</initialOrientationAsReference>
+        <frame_name>imu_link</frame_name>
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
       </plugin>
     </sensor>
   </gazebo>
@@ -243,13 +248,15 @@
     <inertial>
       <mass value="${cameraMass}"/>
       <origin xyz="0 0 0"/>
-      <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/>
+      <!-- Original: <inertia ixx="1e-6" iyy="1e-6" izz="1e-6"/> -->
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
 
     <visual>
       <origin xyz="-0.05 0 -0.055" rpy="0 -0.1 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_camera.dae" scale="0.001 0.001 0.001"/>
       </geometry>
       <material name="black"/>
     </visual>
@@ -257,7 +264,8 @@
     <collision>
       <origin xyz="-0.05 0 -0.055" rpy="0 -0.1 0"/>
       <geometry>
-        <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/>
+        <!-- Original: <mesh filename="package://duckiebot_description/meshes/duckiebot_camera.dae"/> -->
+        <mesh filename="file://$(find duckiebot_description)/meshes/duckiebot_camera.dae" scale="0.001 0.001 0.001"/>
       </geometry>
     </collision>
   </link>
