@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<robot>
+
+  <gazebo>
+    <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
+      <update_rate>50</update_rate>
+      <left_joint>left_wheel_hinge</left_joint>
+      <right_joint>right_wheel_hinge</right_joint>
+      <wheel_separation>0.074</wheel_separation>
+      <wheel_diameter>0.064</wheel_diameter>
+      <max_wheel_torque>20</max_wheel_torque>
+      <max_wheel_acceleration>0.0</max_wheel_acceleration>
+      <command_topic>cmd_vel</command_topic>
+      <odometry_topic>odom</odometry_topic>
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>false</publish_wheel_tf>
+    </plugin>
+  </gazebo>
+
+  <gazebo reference="chassis">
+    <material>Gazebo/Red</material>
+  </gazebo>
+
+  <gazebo reference="computer">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="camera">
+    <material>Gazebo/Black</material>
+  </gazebo>
+
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Green</material>
+  </gazebo>
+
+  <gazebo reference="camera">
+    <sensor type="camera" name="camera1">
+      <update_rate>30.0</update_rate>
+      <camera name="head">
+        <horizontal_fov>1.04</horizontal_fov>
+        <image>
+          <width>320</width>
+          <height>240</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>50</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+        <ros>
+          <namespace>duckiebot</namespace>
+          <remapping>image_raw:=image_raw</remapping>
+          <remapping>camera_info:=camera_info</remapping>
+        </ros>
+        <camera_name>camera1</camera_name>
+        <frame_name>camera</frame_name>
+        <hack_baseline>0.07</hack_baseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+</robot>

@@ -1,0 +1,15 @@
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
+
+diff_drive_controller:
+  type: diff_drive_controller/DiffDriveController
+  publish_rate: 50
+
+  left_wheel: ['left_wheel_hinge']
+  right_wheel: ['right_wheel_hinge']
+
+  wheel_separation: 0.10
+  wheel_radius: 0.03
+
+  cmd_vel_timeout: 0.5

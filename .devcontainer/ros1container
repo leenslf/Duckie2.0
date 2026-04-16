@@ -1,5 +1,5 @@
 {
-    "name": "Duckie2.0 ROS 2 Development Environment",
+    "name": "Duckiebot ROS2 Development Environment",
     "build": {
         "dockerfile": "Dockerfile",
         "context": ".."
@@ -10,22 +10,17 @@
         "NVIDIA_DRIVER_CAPABILITIES": "all",
         "ROS_DOMAIN_ID": "50"
     },
-    "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind,consistency=cached",
-    "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+    "workspaceMount": "source=${localWorkspaceFolder},target=/home/mnt,type=bind,consistency=cached",
+    "workspaceFolder": "/home/mnt/ws",
     "privileged": true,
     "runArgs": [
         "--net=host",
-        "--gpus", "all",
         "--group-add=dialout"
     ],
     "mounts": [
         "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind,consistency=cached",
-        "source=/dev,target=/dev,type=bind,consistency=cached",
-        "source=${localWorkspaceFolder}/ros2_ws,target=/home/grad/ros2_ws,type=bind,consistency=cached"
+        "source=/dev,target=/dev,type=bind,consistency=cached"
     ],
-    "otherPortsAttributes": {
-        "onAutoForward": "ignore"
-    },
     "customizations": {
         "vscode": {
             "extensions": [
@@ -40,5 +35,5 @@
             ]
         }
     },
-    "postCreateCommand": "bash -lc 'cd /home/grad/ros2_ws && colcon build && grep -qxF \"source /home/grad/ros2_ws/install/setup.bash\" ~/.bashrc || echo \"source /home/grad/ros2_ws/install/setup.bash\" >> ~/.bashrc'"
+    "postCreateCommand": "chmod +x ../util/build.sh && bash ../util/build.sh"
 }

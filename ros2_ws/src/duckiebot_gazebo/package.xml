@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>duckiebot_gazebo</name>
+  <version>0.1.0</version>
+  <description>Gazebo Classic assets and launch files for the Duckiebot ROS 2 port.</description>
+  <maintainer email="leensaid24@gmail.com">Leen Said</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <exec_depend>duckiebot_description</exec_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+  <exec_depend>robot_state_publisher</exec_depend>
+  <exec_depend>teleop_twist_keyboard</exec_depend>
+  <exec_depend>xacro</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
